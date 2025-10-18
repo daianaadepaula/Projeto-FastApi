@@ -11,12 +11,11 @@ from src.app.models.orders_models import Order
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
-
-# MONGO_URI = "mongodb+srv://db-order-fastapi:JpuzoP91CYE0T0BqQ5TMxH@cluster0.1s84h9s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DB_NAME = "db-order-fastapi"
 
 async def init_db():
     client = AsyncIOMotorClient(MONGO_URI)
-    database = client.get_default_database()  # usa o nome definido no URI
+    database = client["db-order-fastapi"]
 
     # Inicializa Beanie com os modelos
     await init_beanie(database=database, document_models=[User, Order])
